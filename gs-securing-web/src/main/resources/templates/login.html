@@ -1,20 +1,44 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example </title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}" href="../public/css/app.css"/>
+    <title>Login</title>
+</head>
+
+<body>
+<form action="#" th:action="@{/login}" enctype="utf8" method="POST">
+    <div class="container">
+        <h1 th:text="#{label.form.heading.login}">Login</h1>
+        <hr>
+        <div th:if="${param.error}" class="alert alert-danger errorMsg">
+            Invalid username and password
         </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
+        <div th:if="${param.logout}" class="alert alert-danger errorMsg">
+            Invalid username and password
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-    </body>
+        <table class="loginTable" align="center">
+            <tbody>
+            <tr>
+                <td class="labelTd"><strong> <label th:text="#{label.user.email}">Email</label></strong></td>
+                <td> <input name="username" type="email" placeholder="Email Address"/></td>
+            </tr>
+            <tr>
+                <td class="labelTd"><strong><label th:text="#{label.user.password}">Password</label></strong></td>
+                <td><input name="password" type="password" placeholder="Password"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <button class="submitButton" th:text="#{label.form.button.login}" type="submit">Login</button>
+    </div>
+
+    <div class="container footer">
+        <p>Create account? <a th:href="@{/register}" th:text="#{label.link.register}">Register</a></p>
+    </div>
+</form>
+</body>
 </html>

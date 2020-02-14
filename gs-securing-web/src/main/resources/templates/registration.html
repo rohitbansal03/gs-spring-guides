@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}" href="../public/css/app.css"/>
+    <title>User Registration</title>
+</head>
+
+<body>
+<form action="#" th:action="@{/register}" enctype="utf8" method="POST" th:object="${user}">
+    <div class="container">
+        <h1 th:text="#{label.form.heading.register}">form</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errorMsg">
+            <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Validation error</p>
+        </div>
+        <table class="registrationTable" align="center">
+            <tbody>
+                <tr>
+                    <td class="labelTd"><strong><label th:text="#{label.user.firstName}">First Name</label></strong></td>
+                    <td> <input th:field="*{firstName}" placeholder="First Name"/></td>
+                </tr>
+                <tr>
+                    <td class="labelTd"><strong><label th:text="#{label.user.lastName}">Last Name</label></strong></td>
+                    <td>  <input th:field="*{lastName}" placeholder="Last Name"/></td>
+                </tr>
+                <tr>
+                    <td class="labelTd"><strong> <label th:text="#{label.user.email}">Email</label></strong></td>
+                    <td> <input th:field="*{email}" type="email" placeholder="Email Address"/></td>
+                </tr>
+                <tr>
+                    <td class="labelTd"><strong><label th:text="#{label.user.password}">Password</label></strong></td>
+                    <td><input th:field="*{password}" type="password" placeholder="Password"/></td>
+                </tr>
+                <tr>
+                    <td class="labelTd"><strong><label th:text="#{label.user.confirmPass}">Confirm Password</label></strong></td>
+                    <td><input th:field="*{matchingPassword}" type="password" placeholder="Confirm Password"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button class="submitButton" th:text="#{label.form.button.register}" type="submit">Submit</button>
+    </div>
+
+    <div class="container footer">
+        <p>Already have an account? <a th:href="@{/login}" th:text="#{label.link.login}">Login</a></p>
+    </div>
+</form>
+</body>
+
+</html>
