@@ -41,6 +41,9 @@ a {
     padding: 6px;
     margin: auto;
 }
+.leftAlign {
+    text-align: left
+}
 .submitButton {
     background-color: #4CAF50;
     font-size: 20px;

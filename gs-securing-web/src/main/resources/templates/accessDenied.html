@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
+    <title>Forbidden</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 th:text="#{label.heading.accessDenied}" class="leftAlign">Access Denied</h1>
+        <hr />
+        <p th:text="#{label.text.accessDenied}" class="leftAlign">Trying to access a protected resource</p>
+    </div>
+    <div class="container footer">
+        <p>Click <a th:href="${referer}" th:text="#{label.link.here}">here</a> to return to previous page</p>
+    </div>
+</body>
+</html>
