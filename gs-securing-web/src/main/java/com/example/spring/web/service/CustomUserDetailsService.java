@@ -43,10 +43,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
 
-        logger.info("Fetching user by email-address {}", email);
+        logger.info("Fetching user by email-address '{}'", email);
         final User user = userRepository.findByEmail(email);
         if (Objects.isNull(user)) {
-            throw new UsernameNotFoundException("No user found with username: " + email);
+            throw new UsernameNotFoundException("No user found with email-address: " + email);
         }
 
         logger.info("User details found! Getting authorities for authenticated user {}", user);
@@ -61,7 +61,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private List<String> getUserRoles(final User user) {
-        return user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
+        return user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList());
     }
 
 }

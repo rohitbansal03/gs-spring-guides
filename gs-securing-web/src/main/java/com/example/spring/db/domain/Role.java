@@ -1,7 +1,7 @@
 package com.example.spring.db.domain;
 
-import lombok.Data;
-import lombok.ToString;
+import com.example.spring.enums.RoleType;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,14 +11,15 @@ import java.util.List;
  */
 @Entity
 @Data
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@NoArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class Role extends Persistent {
 
     @Column(unique = true)
-    private String name;
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private RoleType name;
 
     @ToString.Exclude
     @ManyToMany(mappedBy = "roles")

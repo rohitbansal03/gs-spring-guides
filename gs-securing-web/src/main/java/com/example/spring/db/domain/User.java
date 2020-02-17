@@ -1,18 +1,19 @@
 package com.example.spring.db.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
+/**
+ * User entity
+ */
+@Entity(name = "users")
 @Data
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class User extends Persistent {
 
     @Column(name = "first_name")
     private String firstName;

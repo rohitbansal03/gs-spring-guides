@@ -2,6 +2,7 @@ package com.example.spring.utils;
 
 import com.example.spring.db.domain.Role;
 import com.example.spring.db.domain.User;
+import com.example.spring.enums.RoleType;
 import com.example.spring.web.dto.UserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,8 +30,7 @@ public class TestHelper {
         user.setPassword(passwordEncoder.encode(RAW_PASSWORD));
         assert passwordEncoder.matches(RAW_PASSWORD, user.getPassword());
 
-        final Role role = new Role();
-        role.setName("ROLE_USER");
+        final Role role = new Role(RoleType.ROLE_USER);
         user.setRoles(Arrays.asList(role));
         return user;
     }

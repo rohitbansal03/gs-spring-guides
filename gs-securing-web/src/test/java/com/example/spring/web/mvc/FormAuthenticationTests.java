@@ -20,7 +20,6 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FormAuthenticationTests {
 
     @Autowired

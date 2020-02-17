@@ -1,7 +1,10 @@
 package com.example.spring.web.service;
 
+import com.example.spring.db.domain.Role;
 import com.example.spring.db.domain.User;
+import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.db.repository.UserRepository;
+import com.example.spring.enums.RoleType;
 import com.example.spring.web.dto.UserDTO;
 import com.example.spring.web.exception.EmailExistsException;
 import org.slf4j.Logger;
@@ -11,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Service
@@ -19,7 +23,10 @@ public class UserService implements IUserService {
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    private UserRepository repository;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,11 +47,14 @@ public class UserService implements IUserService {
         user.setEmail(accountDto.getEmail());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
 
+        final Role userRole = roleRepository.findByName(RoleType.ROLE_USER);
+        user.setRoles(Arrays.asList(userRole));
+
         logger.info("Persisting user with details {}", user);
-        return repository.save(user);
+        return userRepository.save(user);
     }
 
     private boolean emailExist(String email) {
-        return Objects.nonNull(repository.findByEmail(email));
+        return Objects.nonNull(userRepository.findByEmail(email));
     }
 }
