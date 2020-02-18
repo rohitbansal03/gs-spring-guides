@@ -37,9 +37,16 @@
                 <td><input placeholder="Password" th:field="*{password}" type="password"/></td>
             </tr>
             <tr>
-                <td class="labelTd"><strong><label th:text="#{label.user.confirmPass}">Confirm Password</label></strong>
-                </td>
+                <td class="labelTd"><strong><label th:text="#{label.user.confirmPass}">Confirm Password</label></strong></td>
                 <td><input placeholder="Confirm Password" th:field="*{matchingPassword}" type="password"/></td>
+            </tr>
+            <tr>
+                <td class="labelTd"><strong><label th:text="#{label.user.role}">Role</label></strong></td>
+                <td>
+                    <select class="form-control" th:field="*{role}">
+                        <option th:each="roleName : ${roles}" th:value="${roleName}" th:text="${roleName}" />
+                    </select>
+                </td>
             </tr>
             </tbody>
         </table>

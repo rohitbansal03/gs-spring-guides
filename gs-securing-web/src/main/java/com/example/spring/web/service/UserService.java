@@ -4,7 +4,6 @@ import com.example.spring.db.domain.Role;
 import com.example.spring.db.domain.User;
 import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.db.repository.UserRepository;
-import com.example.spring.enums.RoleType;
 import com.example.spring.web.dto.UserDTO;
 import com.example.spring.web.exception.EmailExistsException;
 import org.slf4j.Logger;
@@ -14,13 +13,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class UserService implements IUserService {
 
-    private static Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private RoleRepository roleRepository;
@@ -33,25 +34,37 @@ public class UserService implements IUserService {
 
     @Transactional
     @Override
-    public User registerNewUserAccount(final UserDTO accountDto)
+    public User registerNewUserAccount(final UserDTO userDTO)
             throws EmailExistsException {
 
-        if (emailExist(accountDto.getEmail())) {
+        if (emailExist(userDTO.getEmail())) {
             throw new EmailExistsException("There is an account with the email address already: "
-                    + accountDto.getEmail());
+                    + userDTO.getEmail());
         }
-
         final User user = new User();
-        user.setFirstName(accountDto.getFirstName());
-        user.setLastName(accountDto.getLastName());
-        user.setEmail(accountDto.getEmail());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        final Role userRole = roleRepository.findByName(RoleType.ROLE_USER);
+        final Role userRole = roleRepository.findByName(userDTO.getRole());
         user.setRoles(Arrays.asList(userRole));
 
         logger.info("Persisting user with details {}", user);
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<UserDTO> getUsers() {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        userRepository.findAll().forEach(user -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setLastName(user.getLastName());
+            userDTO.setEmail(user.getEmail());
+            userDTOS.add(userDTO);
+        });
+        return userDTOS;
     }
 
     private boolean emailExist(String email) {

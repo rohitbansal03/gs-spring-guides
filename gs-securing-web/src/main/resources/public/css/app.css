@@ -26,6 +26,15 @@ body {
     padding: 8px;
     width: 200px;
 }
+.usersTable {
+    border-collapse: collapse;
+    width: 75%
+}
+.usersTable th, .usersTable td {
+     text-align: left;
+     padding: 8px;
+     border: 1px solid black;
+}
 input {
     padding-left: 8px;
     width: 280px;

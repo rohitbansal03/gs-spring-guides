@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+    <div th:fragment="logout-form">
+        <form method="post" th:action="@{/logout}">
+            <button class="submitButton logout" th:text="#{label.form.link.logout}" type="submit">SignOut</button>
+        </form>
+    </div>
+</body>
+</html>

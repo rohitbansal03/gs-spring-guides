@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
+    <title>Admin Console</title>
+</head>
+
+<body>
+    <div class="container main leftAlign">
+        <div th:replace="logoutForm :: logout-form" />
+        <h2 th:inline="text">Hello [[${loggedInUser}]]!</h2>
+        <hr>
+        <div th:switch="${users}">
+            <h4 th:case="null">No users yet!</h4>
+            <div th:case="*">
+                <h4>Users</h4>
+                <table class="usersTable">
+                    <thead>
+                        <tr>
+                            <th><strong><label th:text="#{label.user.firstName}">First Name</label></strong></th>
+                            <th><strong><label th:text="#{label.user.lastName}">Last Name</label></strong></th>
+                            <th><strong> <label th:text="#{label.user.email}">Email</label></strong></th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td><a th:href="@{/user/edit/{id}(id=${user.email})}">Edit</a></td>
+                            <td><a th:href="@{/user/delete/{id}(id=${user.email})}">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div th:replace="footer :: footer"/>
+</body>
+
+</html>

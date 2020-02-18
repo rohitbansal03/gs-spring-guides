@@ -6,16 +6,15 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
-    <title>Login</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
-    <div class="container main">
-        <form method="post" th:action="@{/logout}">
-            <button class="submitButton logout" th:text="#{label.form.button.logout}" type="submit">SignOut</button>
-        </form>
-        <h2 class="leftAlign" th:inline="text">Hello [[${loggedInUser}]]!</h2>
+    <div class="container main leftAlign">
+        <div th:replace="logoutForm :: logout-form" />
+        <h2 th:inline="text">Hello [[${loggedInUser}]]!</h2>
         <hr>
+        <p>This is a user dashboard!</p>
     </div>
     <div th:replace="footer :: footer" />
 </body>

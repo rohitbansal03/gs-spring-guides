@@ -1,6 +1,7 @@
 package com.example.spring.web.controller;
 
 import com.example.spring.db.domain.User;
+import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.web.dto.UserDTO;
 import com.example.spring.web.exception.EmailExistsException;
 import com.example.spring.web.service.IUserService;
@@ -11,39 +12,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(("/register"))
+@RequestMapping
 public class RegistrationController {
 
-    private static Logger logger = LoggerFactory.getLogger(RegistrationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
     private IUserService userService;
 
-    @GetMapping
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @GetMapping("/register")
     public String showRegistrationForm(HttpServletRequest request, Model model) {
         logger.debug("Returning registration page ...");
-        UserDTO userDto = new UserDTO();
-        model.addAttribute("user", userDto);
+        model.addAttribute("user", new UserDTO());
+        model.addAttribute("roles", roleRepository.findDistinctRoles());
         return "registration";
     }
 
-    @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserDTO accountDto,
+    @PostMapping("/register")
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserDTO userDto,
                                       BindingResult result, HttpServletRequest request, Errors errors) {
         if (result.hasErrors()) {
             return "registration";
         }
-        Optional<User> registered = this.createUserAccount(accountDto, result);
+        Optional<User> registered = this.createUserAccount(userDto, result);
         if (!registered.isPresent()) {
             result.rejectValue("email", "message.regError");
             return "registration";
