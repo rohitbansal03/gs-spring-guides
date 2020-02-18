@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class CustomAccessDeniedHandler implements org.springframework.security.web.access.AccessDeniedHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
 
     @Override
     public void handle(final HttpServletRequest request, final HttpServletResponse response,

@@ -18,7 +18,7 @@ import java.util.Collection;
 
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(CustomSuccessHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomSuccessHandler.class);
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override

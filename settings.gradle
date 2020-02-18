@@ -26,7 +26,7 @@ buildFiles.each { File buildFile ->
         } else {
             projectName = buildFile.name.replace('.gradle', '')
         }
-        String projectPath = ':' + projectName;
+        String projectPath = ':' + projectName
         include projectPath
         def project = findProject("${projectPath}")
         project.name = projectName
