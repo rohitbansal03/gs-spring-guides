@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 
-    User registerNewUserAccount(UserDTO accountDto) throws EmailExistsException;
+    User addUserAccount(UserDTO accountDto) throws EmailExistsException;
 
     List<UserDTO> getUsers();
 }

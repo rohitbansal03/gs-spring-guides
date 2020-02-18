@@ -40,7 +40,7 @@ public class WebSecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http
+            http.csrf().disable()
                     .antMatcher("/actuator/**")
                     .antMatcher("/rest/**")
                     .authorizeRequests()

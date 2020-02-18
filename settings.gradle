@@ -8,6 +8,7 @@ FileTree buildFiles = fileTree(rootDir) {
     if(excludes) {
         exclude excludes
     }
+    exclude 'angular-spring-boot'
 }
 
 String rootDirPath = rootDir.absolutePath + File.separator

@@ -55,7 +55,7 @@ public class RegistrationController {
     private Optional<User> createUserAccount(UserDTO userDTO, BindingResult result) {
         User registered;
         try {
-            registered = userService.registerNewUserAccount(userDTO);
+            registered = userService.addUserAccount(userDTO);
             logger.info("Registration successful with email address {}", userDTO.getEmail());
         } catch (EmailExistsException e) {
             logger.info("Email already exists", e);

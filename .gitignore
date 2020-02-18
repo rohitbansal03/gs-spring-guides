@@ -3,3 +3,5 @@
 **/build
 *.log
 *.gz
+/angular-spring-boot/.vscode/launch.json
+launch.json

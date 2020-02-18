@@ -34,7 +34,7 @@ public class UserService implements IUserService {
 
     @Transactional
     @Override
-    public User registerNewUserAccount(final UserDTO userDTO)
+    public User addUserAccount(final UserDTO userDTO)
             throws EmailExistsException {
 
         if (emailExist(userDTO.getEmail())) {
@@ -62,6 +62,7 @@ public class UserService implements IUserService {
             userDTO.setFirstName(user.getFirstName());
             userDTO.setLastName(user.getLastName());
             userDTO.setEmail(user.getEmail());
+            userDTO.setRole(user.getRoles().stream().findFirst().get().getName());
             userDTOS.add(userDTO);
         });
         return userDTOS;
