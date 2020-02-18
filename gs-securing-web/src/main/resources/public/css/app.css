@@ -7,8 +7,19 @@ body {
     box-sizing: border-box;
 }
 .container {
-    padding: 16px;
+    padding: 25px;
     background-color: white;
+}
+.main {
+    min-height: 400px;
+}
+.leftAlign {
+    text-align: left;
+}
+.centered {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 .labelTd {
     text-align: left;
@@ -57,6 +68,12 @@ a {
 }
 .submitButton:hover {
     opacity: 1;
+}
+.logout {
+    background-color: white;
+    color: grey;
+    float: right;
+    font-size: medium;
 }
 .footer {
     background-color: #f1f1f1;

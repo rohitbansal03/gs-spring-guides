@@ -1,7 +1,7 @@
 package com.example.spring.web.mvc;
 
 import com.example.spring.db.repository.UserRepository;
-import com.example.spring.web.controller.GreetingController;
+import com.example.spring.web.controller.GreetingRestController;
 import com.example.spring.web.service.CustomUserDetailsService;
 import com.example.spring.web.service.GreetingService;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(GreetingController.class)
+@WebMvcTest(GreetingRestController.class)
 public class GreetingControllerTest {
 
     @Autowired
@@ -36,7 +36,7 @@ public class GreetingControllerTest {
     @WithMockUser
     public void greetingShouldReturnMessageFromService() throws Exception {
         when(service.greet()).thenReturn("Hello, Mock");
-        this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/rest/greeting")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello, Mock")));
     }
 

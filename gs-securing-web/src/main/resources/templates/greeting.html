@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Hello World!</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
+    <title>Login</title>
 </head>
 
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
-<form method="post" th:action="@{/logout}">
-    <input type="submit" value="Sign Out"/>
-</form>
+    <div class="container main">
+        <form method="post" th:action="@{/logout}">
+            <button class="submitButton logout" th:text="#{label.form.button.logout}" type="submit">SignOut</button>
+        </form>
+        <h2 class="leftAlign" th:inline="text">Hello [[${loggedInUser}]]!</h2>
+        <hr>
+    </div>
+    <div th:replace="footer :: footer" />
 </body>
 
 </html>

@@ -2,6 +2,7 @@ package com.example.spring.web.service;
 
 import com.example.spring.db.domain.User;
 import com.example.spring.db.repository.UserRepository;
+import com.example.spring.web.dto.UserPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
+    public static final String WHITESPACE = " ";
     private final boolean enabled = true;
     private final boolean accountNonExpired = true;
     private final boolean credentialsNonExpired = true;
@@ -54,10 +56,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails getAuthenticatedUser(final User user) {
-        return new org.springframework.security.core.userdetails.User
-                (user.getEmail(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
-                        accountNonLocked,
-                        getAuthorities(getUserRoles(user)));
+        return new UserPrincipal(user.getEmail(), user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, getAuthorities(getUserRoles(user)), String.join(WHITESPACE, user.getFirstName(),
+                user.getLastName()));
     }
 
     private List<String> getUserRoles(final User user) {

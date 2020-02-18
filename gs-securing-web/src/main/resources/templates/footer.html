@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/app.css" rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+    <div th:fragment="footer" class="container footer">
+        <p th:inline="text">&copy; [[${#dates.year(#dates.createNow())}]] Spring Boot Demo</p>
+    </div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.spring.db.domain;
 
 import com.example.spring.enums.RoleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Role extends Persistent {
     @Enumerated(EnumType.STRING)
     private RoleType name;
 
+    @JsonIgnore
     @ToString.Exclude
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
