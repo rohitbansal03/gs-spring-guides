@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -38,13 +43,25 @@ public class WebSecurityConfig {
     @Order(1)
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
+        @Bean
+        CorsConfigurationSource corsConfigurationSource() {
+            CorsConfiguration configuration = new CorsConfiguration();
+            configuration.setAllowedHeaders(Arrays.asList("Authorization"));
+            configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/rest/**", configuration);
+            return source;
+        }
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable()
-                    .antMatcher("/actuator/**")
-                    .antMatcher("/rest/**")
+            http
+                    .cors().and()
+                    .csrf().disable()
                     .authorizeRequests()
-                    .anyRequest().hasAnyRole("USER", "ADMIN")
+                    .antMatchers("/actuator/**", "/rest/**")
+                    .hasAnyRole("USER", "ADMIN")
                     .and().httpBasic();
         }
     }
@@ -59,7 +76,7 @@ public class WebSecurityConfig {
 
         @Bean
         public AuthenticationSuccessHandler successHandler() {
-            return  new CustomSuccessHandler();
+            return new CustomSuccessHandler();
         }
 
         @Override

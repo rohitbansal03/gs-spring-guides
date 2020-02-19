@@ -1,5 +1,6 @@
 package com.example.spring.web.controller;
 
+import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.web.dto.UserDTO;
 import com.example.spring.web.exception.EmailExistsException;
 import com.example.spring.web.service.IUserService;
@@ -19,12 +20,21 @@ public class UserRestController extends AbstractRestController {
     private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    IUserService userService;
+    private IUserService userService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/users")
     public List<UserDTO> getUsers() {
         logger.debug("Request for fetching list of users");
         return userService.getUsers();
+    }
+
+    @GetMapping("/roles")
+    public List<String> getRoles() {
+        logger.debug("Request for fetching role-types");
+        return roleRepository.findDistinctRoles();
     }
 
     @PostMapping("/users")
