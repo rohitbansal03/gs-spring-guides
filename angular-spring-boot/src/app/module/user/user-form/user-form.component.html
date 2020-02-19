@@ -1,48 +1,56 @@
 <div class="card my-5">
   <div class="card-body">
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <form autocomplete="off" name="userForm" (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" novalidate>
+
+      <div [hidden]="(!userForm.submitted || userForm.valid) && !response.error" class="alert alert-danger">
+        <div [hidden]="firstName.valid">First Name is required</div>
+        <div [hidden]="lastName.valid">Last Name is required</div>
+        <div [hidden]="email.valid">Email is required</div>
+        <div [hidden]="password.valid">Password is required</div>
+        <div [hidden]="matchingPassword.valid">Confirm your password</div>
+        <div *ngIf="role.invalid">Role is required</div>
+        <div *ngFor="let errorMsg of response.errorMsgs">{{errorMsg}}</div>
+      </div>
+      
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" [(ngModel)]="user.firstName" 
-          class="form-control"
-          id="firstName"
-          name="firstName"
-          placeholder="Enter your first name"
-          required #firstName="ngModel">
+        <input type="text" [(ngModel)]="user.firstName" class="form-control" id="firstName" name="firstName"
+          placeholder="Enter your first name" required #firstName="ngModel">
       </div>
-      <div [hidden]="!firstName.pristine" class="alert alert-danger">First Name is required</div>
+      
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" [(ngModel)]="user.lastName" 
-          class="form-control"
-          id="lastName"
-          name="lastName"
-          placeholder="Enter your last name"
-          required #lastName="ngModel">
+        <input type="text" [(ngModel)]="user.lastName" class="form-control" id="lastName" name="lastName"
+          placeholder="Enter your last name" required #lastName="ngModel">
       </div>
-      <div [hidden]="!lastName.pristine" class="alert alert-danger">Last Name is required</div>
+      
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" [(ngModel)]="user.email" 
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Enter your email address"
-          required #email="ngModel">
-        <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+        <input type="email" [(ngModel)]="user.email" class="form-control" id="email" name="email"
+          placeholder="Enter your email address" required email #email="ngModel">
       </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" [(ngModel)]="user.password" class="form-control" id="password" name="password"
+          placeholder="Enter your password" required #password="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="matchingPassword">Confirm Password</label>
+        <input type="password" [(ngModel)]="user.matchingPassword" class="form-control" id="matchingPassword" 
+          name="matchingPassword" placeholder="Confirm your password" required #matchingPassword="ngModel">
+      </div>
+      
       <div class="form-group">
         <label for="role">Role</label>
-        <input type="text" [(ngModel)]="user.role" 
-          class="form-control"
-          id="role"
-          name="role"
-          placeholder="Enter valid Role"
-          required #role="ngModel">
-        <div [hidden]="!role.pristine" class="alert alert-danger">Role is required</div>
+        <select class="form-control" id="role" name="role" [(ngModel)]="user.role" required #role="ngModel">
+          <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
+        </select>
       </div>
-      <button type="submit" [disabled]="!userForm.form.valid" 
-        class="btn btn-info">Submit</button>
+      
+      <button type="submit" class="btn btn-info">Submit</button>
     </form>
+
   </div>
 </div>
