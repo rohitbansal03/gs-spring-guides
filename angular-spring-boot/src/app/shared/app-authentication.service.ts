@@ -10,11 +10,15 @@ export class AuthenticationService {
     @Output() isAuthenticated: EventEmitter<boolean> = new EventEmitter();
 
     constructor(private http: HttpClient) { 
-        if(localStorage.getItem('currentUser')) {
+        if(this.isUserAuthenticated()) {
             this.isAuthenticated.emit(true);
         } else {
             this.isAuthenticated.emit(false);
         }
+    }
+
+    isUserAuthenticated() {
+        return localStorage.getItem('currentUser') != null;
     }
 
     login(username: string, password: string) {

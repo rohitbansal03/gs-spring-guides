@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@shared/app-auth-guard';
-
-import { LoginComponent } from '@login/login.component';
-import { UserListComponent } from '@user/user-list/user-list.component';
-import { UserFormComponent } from '@user/user-form/user-form.component';
-
-
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'user/add', component: UserFormComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'login', 
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule) 
+  },
+  { 
+    path: 'customers', 
+    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) 
+  },
+  { 
+    path: 'user', 
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+  },
   { path: '**', redirectTo: '' }
 ];
  

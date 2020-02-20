@@ -15,6 +15,7 @@ export class AppComponent {
  
   constructor(private app: AuthenticationService) {
     this.title = 'Spring Boot - Angular Application';
+    this.isAuthenticated = app.isUserAuthenticated();
   }
 
   ngOnInit() {

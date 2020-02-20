@@ -21,9 +21,8 @@
     "paths": {
       "@environment/*": ["./src/environments/*"],
       "@app/*": ["./src/app/*"],
-      "@login/*": ["./src/app/module/login/*"],
-      "@home/*": ["./src/app/module/home/*"],
-      "@user/*": ["./src/app/module/user/*"],
+      "@login/*": ["./src/app/login/*"],
+      "@user/*": ["./src/app/user/*"],
       "@shared/*": ["./src/app/shared/*"]
     },
     "module": "esnext"
