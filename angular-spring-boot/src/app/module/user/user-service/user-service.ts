@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/user';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '@environment/environment'
+
+import { AuthenticationService } from '@app/shared/app-authentication.service';
 
 @Injectable()
 export class UserService {
@@ -10,9 +11,9 @@ export class UserService {
   private rolesUrl: string;
   private usersUrl: string;
  
-  constructor(private http: HttpClient) {
-    this.usersUrl = environment.baseUrl + '/users';
-    this.rolesUrl = environment.baseUrl + '/roles';
+  constructor(private app: AuthenticationService, private http: HttpClient) {
+    this.usersUrl = this.app.getUrl('/users');
+    this.rolesUrl = this.app.getUrl('/roles');
   }
 
   public findAll(): Observable<User[]> {

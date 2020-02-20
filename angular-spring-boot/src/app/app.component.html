@@ -13,10 +13,16 @@
           <ul class="text-center list-inline py-3">
             <li class="list-inline-item">
               <a routerLink="/users" class="btn btn-info">List Users</a>
-                </li>
+            </li>
             <li class="list-inline-item">
               <a routerLink="/adduser" class="btn btn-info">Add User</a>
-                </li>
+            </li>
+            <li [hidden]="isAuthenticated" class="list-inline-item">
+              <a routerLink="/login" class="btn btn-info">Login</a>
+            </li>
+            <li [hidden]="!isAuthenticated" class="list-inline-item">
+              <a (click)="logout()" class="btn btn-info">Logout</a>
+            </li>
           </ul>
         </div>
       </div>

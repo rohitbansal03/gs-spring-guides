@@ -59,8 +59,8 @@ public class WebSecurityConfig {
             http
                     .cors().and()
                     .csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers("/actuator/**", "/rest/**")
+                    .antMatcher("/actuator/**").antMatcher("/rest/**")
+                    .authorizeRequests().anyRequest()
                     .hasAnyRole("USER", "ADMIN")
                     .and().httpBasic();
         }
