@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
@@ -7,11 +7,13 @@ import { environment } from '@environment/environment';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    isAuthenticated: boolean;
+    @Output() isAuthenticated: EventEmitter<boolean> = new EventEmitter();
 
     constructor(private http: HttpClient) { 
-        if (localStorage.getItem('currentUser')) {
-            this.isAuthenticated = true;
+        if(localStorage.getItem('currentUser')) {
+            this.isAuthenticated.emit(true);
+        } else {
+            this.isAuthenticated.emit(false);
         }
     }
 
@@ -27,7 +29,7 @@ export class AuthenticationService {
                     // to keep user logged in between page refreshes
                     user.authdata = window.btoa(username + ':' + password);
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.isAuthenticated = true;
+                    this.isAuthenticated.emit(true);
                 }
                 return user;
             }));
@@ -35,7 +37,7 @@ export class AuthenticationService {
 
     logout() {
         localStorage.removeItem('currentUser');
-        this.isAuthenticated = false;
+        this.isAuthenticated.emit(false);
     }
 
     getUrl(resource: string) {

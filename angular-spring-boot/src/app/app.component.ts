@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { AuthenticationService } from '@shared/app-authentication.service';
 
@@ -13,17 +11,21 @@ import 'rxjs/add/operator/finally';
 })
 export class AppComponent {
   title: string;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean = false;
  
   constructor(private app: AuthenticationService) {
     this.title = 'Spring Boot - Angular Application';
-    this.isAuthenticated = this.app.isAuthenticated;
+  }
+
+  ngOnInit() {
+    this.app.isAuthenticated.subscribe((isAuthenticatedVal: boolean) => {
+      this.isAuthenticated = isAuthenticatedVal;
+    });
   }
 
   logout() {
     this.isAuthenticated = false;
     this.app.logout();
-    location.reload(true);
   }
 
 }

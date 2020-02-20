@@ -11,7 +11,7 @@ import { UserFormComponent } from '@user/user-form/user-form.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'adduser', component: UserFormComponent, canActivate: [AuthGuard] },
+  { path: 'user/add', component: UserFormComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
  
