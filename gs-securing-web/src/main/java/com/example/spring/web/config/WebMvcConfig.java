@@ -1,4 +1,4 @@
-package com.example.spring.config;
+package com.example.spring.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

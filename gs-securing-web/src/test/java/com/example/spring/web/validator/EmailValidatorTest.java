@@ -1,6 +1,6 @@
-package com.example.spring.validator;
+package com.example.spring.web.validator;
 
-import com.example.spring.utils.TestHelper;
+import com.example.spring.util.TestHelper;
 import com.example.spring.web.dto.UserDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ public class EmailValidatorTest {
 
     @BeforeEach
     void beforeAll() {
-        user = TestHelper.prepareUserDTO();
+        user = TestHelper.prepareUserDTO("John", "Doe", null);
     }
 
     @Test

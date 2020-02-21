@@ -1,4 +1,4 @@
-package com.example.spring.validator;
+package com.example.spring.web.validator;
 
 import com.example.spring.annotation.PasswordConstraint;
 import com.example.spring.web.dto.UserDTO;

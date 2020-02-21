@@ -1,6 +1,6 @@
 package com.example.spring.web.controller;
 
-import com.example.spring.config.CustomSuccessHandler;
+import com.example.spring.web.config.CustomSuccessHandler;
 import com.example.spring.web.dto.UserPrincipal;
 import com.example.spring.web.service.IUserService;
 import org.slf4j.Logger;

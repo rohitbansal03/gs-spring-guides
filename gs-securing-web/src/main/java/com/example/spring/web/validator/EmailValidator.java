@@ -1,4 +1,4 @@
-package com.example.spring.validator;
+package com.example.spring.web.validator;
 
 import com.example.spring.annotation.Email;
 import org.springframework.util.StringUtils;

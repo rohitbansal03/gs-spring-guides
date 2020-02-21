@@ -5,7 +5,7 @@ import com.example.spring.db.domain.User;
 import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.db.repository.UserRepository;
 import com.example.spring.web.dto.UserDTO;
-import com.example.spring.web.exception.EmailExistsException;
+import com.example.spring.exception.EmailExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

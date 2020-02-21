@@ -1,6 +1,6 @@
 package com.example.spring.annotation;
 
-import com.example.spring.validator.PasswordValidator;
+import com.example.spring.web.validator.PasswordValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

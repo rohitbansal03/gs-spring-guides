@@ -1,4 +1,4 @@
-package com.example.spring.config;
+package com.example.spring.web.config;
 
 import com.example.spring.enums.RoleType;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.example.spring.web.handler;
+package com.example.spring.util;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

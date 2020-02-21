@@ -3,7 +3,7 @@ package com.example.spring.web.controller;
 import com.example.spring.db.domain.User;
 import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.web.dto.UserDTO;
-import com.example.spring.web.exception.EmailExistsException;
+import com.example.spring.exception.EmailExistsException;
 import com.example.spring.web.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

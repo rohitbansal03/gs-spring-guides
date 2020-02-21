@@ -1,6 +1,6 @@
-package com.example.spring.config;
+package com.example.spring.rest.config;
 
-import com.example.spring.web.handler.WebUtil;
+import com.example.spring.util.WebUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

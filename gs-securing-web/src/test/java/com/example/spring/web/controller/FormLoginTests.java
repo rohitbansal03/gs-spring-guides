@@ -1,8 +1,9 @@
-package com.example.spring.web.mvc;
+package com.example.spring.web.controller;
 
 import com.example.spring.db.domain.User;
 import com.example.spring.db.repository.UserRepository;
-import com.example.spring.utils.TestHelper;
+import com.example.spring.enums.RoleType;
+import com.example.spring.util.TestHelper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FormAuthenticationTests {
+public class FormLoginTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -31,19 +32,21 @@ public class FormAuthenticationTests {
     private UserRepository userRepository;
 
     @Test
-    public void loginWithValidUserThenAuthenticated() throws Exception {
-        final User user = TestHelper.prepareUser(passwordEncoder);
-        Mockito.when(userRepository.findByEmail(Mockito.eq(TestHelper.EMAIL_ADDRESS))).thenReturn(user);
+    public void testLoginWithValidUser() throws Exception {
+
+        final String rawPassword = "Passw0rd";
+        final User user = TestHelper.prepareUser(passwordEncoder, rawPassword, RoleType.ROLE_USER);
+        Mockito.when(userRepository.findByEmail(Mockito.eq(user.getEmail()))).thenReturn(user);
 
         SecurityMockMvcRequestBuilders.FormLoginRequestBuilder login =
-                formLogin().user(TestHelper.EMAIL_ADDRESS).password(TestHelper.RAW_PASSWORD);
-        mockMvc.perform(login).andExpect(authenticated().withUsername(TestHelper.EMAIL_ADDRESS));
+                formLogin().user(user.getEmail()).password(rawPassword);
+        mockMvc.perform(login).andExpect(authenticated().withUsername(user.getEmail()));
     }
 
     @Test
-    public void loginWithInvalidUserThenUnauthenticated() throws Exception {
-        SecurityMockMvcRequestBuilders.FormLoginRequestBuilder login = formLogin().user("invalid").password(
-                "invalidpassword");
+    public void testLoginWithInvalidUser() throws Exception {
+        SecurityMockMvcRequestBuilders.FormLoginRequestBuilder login = formLogin()
+                .user("invalid").password("invalidpassword");
         mockMvc.perform(login).andExpect(unauthenticated());
     }
 

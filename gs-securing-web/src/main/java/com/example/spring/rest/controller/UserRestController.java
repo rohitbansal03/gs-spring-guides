@@ -1,9 +1,9 @@
-package com.example.spring.web.controller;
+package com.example.spring.rest.controller;
 
 import com.example.spring.db.repository.RoleRepository;
 import com.example.spring.web.dto.UserDTO;
-import com.example.spring.web.exception.EmailExistsException;
-import com.example.spring.web.handler.WebUtil;
+import com.example.spring.exception.EmailExistsException;
+import com.example.spring.util.WebUtil;
 import com.example.spring.web.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @RestController
 public class UserRestController extends AbstractRestController {

@@ -1,6 +1,6 @@
 package com.example.spring.annotation;
 
-import com.example.spring.validator.EmailValidator;
+import com.example.spring.web.validator.EmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
