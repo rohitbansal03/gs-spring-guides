@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface IUserService {
 
+    UserDTO getUserDTO(String emailAddress);
+
     User addUserAccount(UserDTO accountDto) throws EmailExistsException;
 
     List<UserDTO> getUsers();
+
 }

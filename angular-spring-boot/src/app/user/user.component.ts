@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from '@app/shared/app-authentication.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
  
-  constructor(private authService: AuthenticationService,
+ constructor(private authService: AuthenticationService,
       private router: Router) {
   }
  

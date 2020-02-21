@@ -31,12 +31,11 @@ export class UserFormComponent {
     if(userForm.valid) {
         this.userService.save(this.user).subscribe(result => {
           this.router.navigate(['/users']);
+          console.log(result);
         }, 
         errorObj => {
-          // If there is a error from server-side, show the error-messages
           this.response.error = true;
-          this.response.errorMsgs = errorObj.error.errors;
-          userForm.reset();
+          this.response.errorMsgs = errorObj.errors;
         }
       );
     }

@@ -12,6 +12,10 @@ const routes: Routes = [
     canActivate: [AuthGuard], 
     children: [
       { 
+        path: '', 
+        redirectTo: 'list'
+      },
+      { 
         path: 'list', 
         component: UserListComponent
       },

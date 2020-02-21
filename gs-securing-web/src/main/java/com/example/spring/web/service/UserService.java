@@ -32,6 +32,12 @@ public class UserService implements IUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
+    public UserDTO getUserDTO(String emailAddress) {
+        final User user = userRepository.findByEmail(emailAddress);
+        return this.getUserDTO(user);
+    }
+
     @Transactional
     @Override
     public User addUserAccount(final UserDTO userDTO)
@@ -58,14 +64,19 @@ public class UserService implements IUserService {
     public List<UserDTO> getUsers() {
         List<UserDTO> userDTOS = new ArrayList<>();
         userRepository.findAll().forEach(user -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setFirstName(user.getFirstName());
-            userDTO.setLastName(user.getLastName());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setRole(user.getRoles().stream().findFirst().get().getName());
+            UserDTO userDTO = getUserDTO(user);
             userDTOS.add(userDTO);
         });
         return userDTOS;
+    }
+
+    private UserDTO getUserDTO(final User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setRole(user.getRoles().stream().findFirst().get().getName());
+        return userDTO;
     }
 
     private boolean emailExist(String email) {

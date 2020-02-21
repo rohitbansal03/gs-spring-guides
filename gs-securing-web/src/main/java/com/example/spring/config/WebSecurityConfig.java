@@ -5,12 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
@@ -44,6 +47,13 @@ public class WebSecurityConfig {
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
         @Bean
+        AuthenticationEntryPoint authenticationEntryPoint() {
+            CustomAuthenticationEntryPoint customAuthenticationEntryPoint =  new CustomAuthenticationEntryPoint();
+            customAuthenticationEntryPoint.setRealmName("Realm");
+            return customAuthenticationEntryPoint;
+        }
+
+        @Bean
         CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedHeaders(Arrays.asList("*"));
@@ -62,7 +72,12 @@ public class WebSecurityConfig {
                     .antMatcher("/actuator/**").antMatcher("/rest/**")
                     .authorizeRequests().anyRequest()
                     .hasAnyRole("USER", "ADMIN")
-                    .and().httpBasic();
+                    .and().httpBasic(getHttpBasicCustomizer());
+        }
+
+        private Customizer<HttpBasicConfigurer<HttpSecurity>> getHttpBasicCustomizer() {
+            return httpSecurityHttpBasicConfigure -> httpSecurityHttpBasicConfigure.authenticationEntryPoint(
+                    authenticationEntryPoint());
         }
     }
 

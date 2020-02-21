@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+public class ResposeEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     public static final String INVALID_REQUEST = "Message cannot be parsed due to invalid request";
 
@@ -26,28 +26,19 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   final HttpHeaders headers, final HttpStatus status,
                                                                   final WebRequest request) {
 
-        return getCustomErrorResponse(Arrays.asList(INVALID_REQUEST), headers, status);
+        return WebUtil.getErrorResponse(Arrays.asList(INVALID_REQUEST), headers, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
                                                                   final HttpHeaders headers, final HttpStatus status,
                                                                   final WebRequest request) {
-        List<String> errors = ex.getBindingResult().getFieldErrors()
+
+        List<String> errors = ex.getBindingResult().getAllErrors()
                 .stream().map(x -> x.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        return getCustomErrorResponse(errors, headers, status);
-    }
-
-    private ResponseEntity<Object> getCustomErrorResponse(final List<String> errors,
-                                                          final HttpHeaders headers, final HttpStatus status) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", status.value());
-        body.put("errors", errors);
-        return new ResponseEntity<>(body, headers, status);
+        return WebUtil.getErrorResponse(errors, headers, status);
     }
 
 }

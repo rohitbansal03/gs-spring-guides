@@ -5,17 +5,11 @@
       <div class="card bg-dark">
         <div class="card-body">
           <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-          <ul class="text-center list-inline py-3">
-            <li class="list-inline-item">
-              <a routerLink="/home" class="btn btn-info">Home</a>
-            </li>
+          <ul [hidden]="!isAuthenticated" class="text-center list-inline py-3">
             <li class="list-inline-item">
               <a routerLink="/user" class="btn btn-info">Users</a>
             </li>
-            <li [hidden]="isAuthenticated" class="list-inline-item">
-              <a routerLink="/login" class="btn btn-info">Login</a>
-            </li>
-            <li [hidden]="!isAuthenticated" class="list-inline-item">
+            <li class="list-inline-item">
               <a href="#" (click)="logout()" class="btn btn-info">Logout</a>
             </li>
           </ul>

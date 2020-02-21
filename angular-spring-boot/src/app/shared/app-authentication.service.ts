@@ -25,7 +25,7 @@ export class AuthenticationService {
         const headers = new HttpHeaders(username ? {
             authorization : 'Basic ' + btoa(username + ':' + password)
         } : {});
-        return this.http.get<any>(this.getUrl('/user'), { headers: headers })
+        return this.http.post<any>(this.getUrl('/login'), {}, { headers: headers })
             .pipe(map(user => {
                 // login successful if there's a user in the response
                 if (user) {
